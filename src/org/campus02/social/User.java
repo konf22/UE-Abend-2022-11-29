@@ -1,6 +1,7 @@
 package org.campus02.social;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class User {
 	
@@ -49,9 +50,28 @@ public class User {
 	}
 	
 	//TODO 1: fügen Sie der Klasse eine toString Methode
-	//wie in der Angabe beschrieben hinzu 
+	//wie in der Angabe beschrieben hinzu
+	@Override
+	public String toString() {
+		return "User [" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				", num_friends=" + friends.size() +
+				']';
+	}
 
 	//TODO 2: erstellen Sie geeignete equals & hashCode Methoden
 	//welche die lt. Angabe definierte Gleichheitsregel erfüllen
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return Objects.equals(id, user.id);
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }

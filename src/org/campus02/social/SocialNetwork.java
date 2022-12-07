@@ -2,6 +2,7 @@ package org.campus02.social;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class SocialNetwork {
@@ -24,7 +25,37 @@ public class SocialNetwork {
 	
 	
 	//TODO 1: implementieren Sie hier die rekursive Methode lt. Angabe
-	
+	public ArrayList<User> findAllFriends(User user,
+										  int level, int maxDepth) {
+		if (level > maxDepth) {
+			return new ArrayList<>();
+		}
+
+		HashSet<User> friends = new HashSet<>(user.getFriends());
+		for (User friend : user.getFriends()) {
+			friends.addAll(findAllFriends(friend, level + 1, maxDepth));
+		}
+
+		return new ArrayList<>(friends);
+	}
+
+	public ArrayList<User> findAllFriends2(User user, int level, int maxDepth) {
+		if (level > maxDepth) {
+			return new ArrayList<>();
+		}
+
+		final ArrayList<User> friends = user.getFriends();
+		final ArrayList<User> result = new ArrayList<>(friends);
+		for (final User f : friends) {
+			final ArrayList<User> allFiends = findAllFriends2(f, level + 1, maxDepth);
+			for (User friend : allFiends) {
+				if (!result.contains(friend)) {
+					result.add(friend);
+				}
+			}
+		}
+		return result;
+	}
 	
 	
 	
